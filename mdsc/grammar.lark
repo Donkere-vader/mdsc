@@ -1,0 +1,93 @@
+COMMENT: "//" /[^\n]/*
+LINE_SEPERATOR: ";"
+NEW_LINE: "\n"
+DOT: "."
+%ignore COMMENT
+%ignore NEW_LINE
+%import common.WS // WhiteSpace
+%ignore WS
+
+LETTER: "A".."Z" | "a".."z"
+DIGIT: "0".."9"
+UNDERSCORE: "_"
+
+// opperators
+PLUS: "+"
+MINUS: "-"
+DIVIDE: "/"
+DIVIDE_FLOOR: "//"
+MULTIPLY: "*"
+TO_POWER: "*"
+DIVIDE_REST: "%"
+opperator: PLUS | MINUS | DIVIDE | DIVIDE_FLOOR | MULTIPLY | TO_POWER | DIVIDE_REST
+
+// evaluations
+GREATER_THAN: ">"
+SMALLER_THAN: "<"
+ABSOLUTE_EQUAL: "==="
+EQUAL: "=="
+GREATER_THAN_OR_EQUAL: ">="
+SMALLER_THAN_OR_EQUAL: "<="
+NOT_EQUAL: "!="
+eval: GREATER_THAN | SMALLER_THAN | EQUAL | GREATER_THAN_OR_EQUAL | SMALLER_THAN_OR_EQUAL | NOT_EQUAL | ABSOLUTE_EQUAL
+
+// GATES
+AND_GATE: "and"
+OR_GATE: "or"
+XOR_GATE: "^"
+gate: AND_GATE | OR_GATE | XOR_GATE
+
+// Simple data types
+int: [ "-" ] DIGIT+
+float: [ "-" ] int DOT int? | [ "-" ] DIGIT? DOT int
+number: int | float
+char: LETTER | int | UNDERSCORE
+%import common.ESCAPED_STRING   -> STRING
+
+// variable
+variable: ( LETTER | UNDERSCORE ) char*
+
+value: int | float | variable | STRING
+object: value | function_call | object_function_call | object_variable_call | opperation
+
+opperation: object (opperator | gate | eval) object
+
+set: ("let" WS+ | "var" WS+)*  variable "=" object
+define: "%DEFINE" WS+ set
+
+line:
+       | set LINE_SEPERATOR
+       | define LINE_SEPERATOR
+       | function
+       | code_block
+       | class
+       | function_call LINE_SEPERATOR
+       | object_function_call LINE_SEPERATOR
+       | return LINE_SEPERATOR
+       | flag
+
+machine_code_get_var: "<" variable ">"
+machine_code_line: value ( WS+ (machine_code_get_var | value))+ LINE_SEPERATOR
+
+code: (line* | machine_code_line*)
+
+code_block: "{" code "}"
+
+// functions
+arg: object
+kwarg: variable "=" object
+parameter_list: "(" (arg | kwarg)? ("," (arg | kwarg))* ")"
+function: "fn" WS variable parameter_list
+function_call: variable parameter_list
+return: "return" object
+
+// class
+class: class variable code_block
+
+object_function_call: object DOT function_call
+object_variable_call: object DOT variable
+
+// flag
+flag: "#[" variable "]"
+
+start: code

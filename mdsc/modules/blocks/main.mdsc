@@ -1,0 +1,11 @@
+
+
+#[MACHINE]
+fn print(value) {
+    print value
+}
+
+#[MACHINE]
+fn printflush(message) {
+    printflush message
+}

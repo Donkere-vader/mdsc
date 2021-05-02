@@ -1,0 +1,22 @@
+// %DEFINE core = nucleus1;
+
+// fn space_for(item) {
+//     let copper = core.amount(item);
+//     let free_space = core.itemCapacity - copper;
+// 
+//     return free_space === 0;
+// }
+// 
+// message.print(core_is_empty);
+
+// let variable = 123.;
+
+%DEFINE message = message1;
+
+#[MACHINE]
+fn output(value) {
+    print <value>;
+    printflush <message>;
+}
+
+output("test");

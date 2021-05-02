@@ -1,0 +1,16 @@
+
+
+#[MACHINE]
+fn cos(value) {
+    op cos return value 0
+}
+
+#[MACHINE]
+fn sin(value) {
+    op sin return value 0
+}
+
+#[MACHINE]
+fn tan(value) {
+    op tan return value 0
+}

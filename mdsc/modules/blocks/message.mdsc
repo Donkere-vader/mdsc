@@ -1,0 +1,13 @@
+import Block from block;
+
+class Message(Block) {
+    #[MACHINE]
+    fn print(self, value) {
+        print value;
+        printflush self;
+    }
+
+    fn clear(self) {
+        self.print("");
+    }
+}

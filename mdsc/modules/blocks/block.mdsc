@@ -1,0 +1,33 @@
+// Main block class for all the blocks
+
+class Block {
+    #[GET]
+    #[MACHINE]
+    fn itemCapacity(self) {
+        sensor return self @itemCapacity
+    }
+
+    #[GET]
+    #[MACHINE]
+    fn totalItems(self) {
+        sensor return self @totalItems
+    }
+
+    #[GET]
+    #[MACHINE]
+    fn copper(self) {
+        sensor return self @copper
+    }
+
+    #[GET]
+    #[MACHINE]
+    fn enabled(self) {
+        sensor return self @enabled
+    }
+
+    #[SET]
+    #[MACHINE]
+    fn enabled(self, value) {
+        control enabled self value 0 0 0
+    }
+}

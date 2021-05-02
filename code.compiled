@@ -1,0 +1,7 @@
+set @counter 6
+print fdjsiao_value
+printflush dafdsa_message
+set dafdsa_message message1
+set @counter return_counter
+set return_counter 8
+set @counter 2
