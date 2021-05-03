@@ -82,6 +82,18 @@ There are two differences with native mindustry code when writing machine code i
 1. All lines in machine mdsc should end with a semi-colon ``;``.
 2. To reference variables from mdsc you need to wrap them in arrows like so: ``<varname>`` this has to do with how variables are handeled. The compiler renames variables to prevent context conflicts.
 
+A machine code function would look like this:
+
+```mdsc
+%DEFINE msg_block = message1;
+
+#[MACHINE]
+fn print(text) {
+  print <text>;
+  printflush <msg_block>;
+}
+```
+
 ### Roadmap
 
 I'm planning to add some more feautures. Listed below:
