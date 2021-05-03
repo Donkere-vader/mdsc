@@ -1,4 +1,4 @@
-from lark import Lark, Tree
+from lark import Lark, Tree, Token
 from lark import Transformer
 import pathlib
 
@@ -38,6 +38,12 @@ class MyTransformer(Transformer):
 
     def LINE_SEPERATOR(self, token):
         return None
+
+    def value(self, items):
+        if type(items[0]) == Token:
+            return Tree('value', [items[0].value])
+        else:
+            return Tree('value', items)
 
 
 def load_lark_tree(file):

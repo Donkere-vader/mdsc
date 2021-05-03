@@ -11,12 +11,24 @@
 
 // let variable = 123.;
 
+// %DEFINE message = message1;
+
+// #[MACHINE]
+// fn output(value, value2="default") {
+//     print <value>;
+//     print <value2>;
+//     printflush <message>;
+// }
+
+// test = 123;
+// output("test", value2=test);
+
 %DEFINE message = message1;
 
 #[MACHINE]
-fn output(value) {
+fn print(value="default") {
     print <value>;
     printflush <message>;
 }
 
-output("test");
+print();

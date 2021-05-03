@@ -76,8 +76,11 @@ code_block: "{" code "}"
 // functions
 arg: object
 kwarg: variable "=" object
+arg_def: variable
+kwarg_def: variable "=" value
+parameter_list_def: "(" (arg_def | kwarg_def)? ("," (arg_def | kwarg_def))* ")"
 parameter_list: "(" (arg | kwarg)? ("," (arg | kwarg))* ")"
-function: "fn" WS variable parameter_list
+function: "fn" WS+ variable parameter_list_def code_block
 function_call: variable parameter_list
 return: "return" object
 
